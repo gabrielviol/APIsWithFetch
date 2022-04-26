@@ -7,4 +7,36 @@ function getUsers() {
         .catch(error => console.error(error))
 }
 
+function getUser() {
+    fetch(`${url}/1`)
+        .then(response => console.log(response.json()))
+        .then(data => {
+            userName.textContent = data.name
+            userCity.textContent = data.city
+            userAvatar.src = data.avatar
+        })
+        .catch(error => console.error(error))
+}
+
+function addUser(newUser) {
+    fetch(url, {
+       method: "POST",
+       body: JSON.stringify(newUser), 
+       headers: {
+           "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+        .then(response => response.json())
+        .then(data => alertApi.textContent = data)
+        .catch(error => console.error(error))
+}
+
+const newUser = {
+    name: "Gabriel Viol",
+    avatar:"https://source.unsplash.com/random",
+    city:"Valinhos" 
+}
+addUser(newUser)
+
 getUsers()
+getUser()
