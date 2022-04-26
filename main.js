@@ -7,8 +7,8 @@ function getUsers() {
         .catch(error => console.error(error))
 }
 
-function getUser() {
-    fetch(`${url}/1`)
+function getUser(id) {
+    fetch(`${url}/${id}`)
         .then(response => console.log(response.json()))
         .then(data => {
             userName.textContent = data.name
@@ -31,12 +31,33 @@ function addUser(newUser) {
         .catch(error => console.error(error))
 }
 
+function updateUser(updatedUser, id) {
+    fetch(`${url}/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(updatedUser),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+        .then(response => response.json())
+        .then(data => alertApi.textContent = data)
+        .catch(error => console.error(error))
+}
+
 const newUser = {
     name: "Gabriel Viol",
     avatar:"https://source.unsplash.com/random",
     city:"Valinhos" 
 }
-addUser(newUser)
+
+const updatedUser = {
+    name: "Rebecca",
+    avatar:"https://source.unsplash.com/random",
+    city:"London" 
+}
+//addUser(newUser)
+
+updateUser(updatedUser, 5)
 
 getUsers()
-getUser()
+getUser(5)
